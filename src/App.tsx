@@ -17,7 +17,7 @@ import ContactPage from "./components/ContactPage";
 import AdminPage from "./components/AdminPage";
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState("home");
+  const [currentPage, setCurrentPage] = useState("services");
   const [isAdminRoute, setIsAdminRoute] = useState(false);
   // Force refresh - updated components with navbar fixes, hero improvements, and services animations
 

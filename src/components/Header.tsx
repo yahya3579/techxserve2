@@ -5,12 +5,12 @@ import { Menu, X, ArrowRight } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
 const navItems = [
-  { name: "Home", href: "#home", page: "home", id: "home" },
-  { name: "About", href: "#about", page: "about", id: "about" },
-  { name: "Services", href: "#services", page: "services", id: "services" },
-  { name: "Products", href: "#products", page: "products", id: "products" },
-  { name: "Blog", href: "#blog", page: "blog", id: "blog" },
-  { name: "Careers", href: "#careers", page: "careers", id: "careers" },
+  // { name: "Home", href: "#home", page: "home", id: "home" },
+  // { name: "About", href: "#about", page: "about", id: "about" },
+  { name: "Home", href: "#home", page: "services", id: "services" },
+  // { name: "Products", href: "#products", page: "products", id: "products" },
+  // { name: "Blog", href: "#blog", page: "blog", id: "blog" },
+  // { name: "Careers", href: "#careers", page: "careers", id: "careers" },
   { name: "Contact", href: "#contact", page: "contact", id: "contact" }
 ];
 
@@ -161,9 +161,15 @@ export default function Header({ currentPage, setCurrentPage }) {
             </motion.button>
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-1 px-[20px] py-[0px]">
-            {navItems.map((item, index) => (
+          {/* Centered Navigation */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="hidden lg:flex items-center justify-center absolute left-1/2 transform -translate-x-1/2"
+          >
+            {/* Home Button - Centered */}
+            {navItems.filter(item => item.name === "Home").map((item, index) => (
               <motion.button
                 key={item.name}
                 onClick={() => {
@@ -201,15 +207,56 @@ export default function Header({ currentPage, setCurrentPage }) {
                 />
               </motion.button>
             ))}
-          </nav>
+          </motion.div>
 
-          {/* Desktop CTA Button */}
+          {/* Right Side Navigation and CTA */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="hidden lg:block"
+            className="hidden lg:flex items-center space-x-4"
           >
+            {/* Contact Button */}
+            {navItems.filter(item => item.name === "Contact").map((item, index) => (
+              <motion.button
+                key={item.name}
+                onClick={() => {
+                  if (item.page) {
+                    setCurrentPage(item.page);
+                  }
+                }}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+                className={`font-medium transition-all duration-300 relative group px-4 py-2 rounded-lg ${
+                  currentPage === item.page
+                    ? 'text-[var(--brand-primary)] bg-[var(--brand-primary)]/10'
+                    : isScrolled 
+                      ? 'text-gray-900 hover:text-[var(--brand-primary)] text-sm' 
+                      : 'text-gray-900 hover:text-[var(--brand-primary)] text-base'
+                }`}
+                whileHover={{ y: -1 }}
+              >
+                {/* Subtle hover background */}
+                <motion.div
+                  className="absolute inset-0 bg-gray-100/60 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  initial={{ scale: 0.8 }}
+                  whileHover={{ scale: 1 }}
+                />
+                
+                {/* Text with relative positioning */}
+                <span className="relative z-10">{item.name}</span>
+                
+                {/* Bottom indicator */}
+                <motion.div 
+                  className={`absolute bottom-1 left-1/2 transform -translate-x-1/2 h-0.5 bg-[var(--brand-primary)] transition-all duration-300 ${
+                    currentPage === item.page ? 'opacity-100 w-3/5' : 'opacity-0 group-hover:opacity-100 w-0 group-hover:w-3/5'
+                  }`}
+                />
+              </motion.button>
+            ))}
+
+            {/* Get In Touch Button */}
             <motion.div
               whileHover={{ scale: 1.02, y: -1 }}
               whileTap={{ scale: 0.98 }}
