@@ -67,8 +67,8 @@ export default function Header({ currentPage, setCurrentPage }) {
           }`}
           layout
         >
-          {/* Logo and MEDIA Button */}
-          <div className="flex items-center space-x-4">
+          {/* Logo */}
+          <div className="flex items-center">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -76,7 +76,7 @@ export default function Header({ currentPage, setCurrentPage }) {
               className="flex items-center space-x-3 group cursor-pointer"
               whileHover={{ scale: 1.02 }}
               style={{ scale: logoScale }}
-              onClick={() => setCurrentPage('home')}
+              onClick={() => setCurrentPage('services')}
             >
               <motion.div 
                 className={`flex items-center justify-center relative ${
@@ -108,57 +108,6 @@ export default function Header({ currentPage, setCurrentPage }) {
                 Serve
               </motion.div>
             </motion.div>
-            
-            {/* MEDIA Button separate from logo */}
-            <motion.button
-              onClick={(e) => {
-                e.stopPropagation();
-                setCurrentPage('media');
-              }}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className={`px-3 py-1.5 bg-black text-white rounded-lg font-medium transition-all duration-300 relative overflow-hidden group hover:scale-105 cursor-pointer z-50 ${
-                isScrolled ? 'text-xs' : 'text-sm'
-              }`}
-              whileHover={{ 
-                boxShadow: '0 0 20px rgba(255, 255, 255, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.1)'
-              }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {/* Glowing background effect */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-blue-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                animate={{
-                  background: [
-                    'linear-gradient(45deg, rgba(168, 85, 247, 0.2), rgba(59, 130, 246, 0.2), rgba(6, 182, 212, 0.2))',
-                    'linear-gradient(45deg, rgba(59, 130, 246, 0.2), rgba(6, 182, 212, 0.2), rgba(168, 85, 247, 0.2))',
-                    'linear-gradient(45deg, rgba(6, 182, 212, 0.2), rgba(168, 85, 247, 0.2), rgba(59, 130, 246, 0.2))',
-                  ]
-                }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-              />
-              
-              {/* Glowing text */}
-              <motion.span 
-                className="relative z-10"
-                animate={{
-                  textShadow: [
-                    '0 0 0 rgba(255, 255, 255, 0)',
-                    '0 0 10px rgba(255, 255, 255, 0.5)',
-                    '0 0 0 rgba(255, 255, 255, 0)',
-                  ]
-                }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                MEDIA
-              </motion.span>
-              
-              {/* Shimmer effect */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"
-              />
-            </motion.button>
           </div>
 
           {/* Centered Navigation */}
